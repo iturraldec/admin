@@ -14,7 +14,9 @@ class TpProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $tpProveedores = TpProveedor::all();
+
+        return response()->json($tpProveedores);
     }
 
     /**
@@ -25,7 +27,9 @@ class TpProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tpProveedor = TpProveedor::firstOrCreate($request->all());
+
+        return response()->json($tpProveedor, 201);
     }
 
     /**
@@ -48,7 +52,10 @@ class TpProveedorController extends Controller
      */
     public function update(Request $request, TpProveedor $tpProveedor)
     {
-        //
+        $tipo = TpProveedor::findOrFail($tpProveedor->id);
+        $tipo->update($request->all());
+
+        return response()->json($tipo, 200);
     }
 
     /**
@@ -59,6 +66,8 @@ class TpProveedorController extends Controller
      */
     public function destroy(TpProveedor $tpProveedor)
     {
-        //
+        $tpProveedor->delete();
+
+        return response()->json(null, 204);
     }
 }
